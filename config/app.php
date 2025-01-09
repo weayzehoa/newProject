@@ -185,7 +185,18 @@ return [
         /*
          * Package Service Providers...
          */
-
+        //Laravel Excel
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        //Request 紀錄器
+        LittleBookBoy\Request\Recorder\RequestRecorderServiceProvider::class,
+        //DebugBar
+        Barryvdh\Debugbar\ServiceProvider::class,
+        //BarCode 產生器
+        Milon\Barcode\BarcodeServiceProvider::class,
+        //AWS
+        Aws\Laravel\AwsServiceProvider::class,
+        //PDF 匯出
+        Barryvdh\DomPDF\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -210,6 +221,17 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+
+        //Laravel Excel
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Curl'  => Ixudra\Curl\Facades\Curl::class,
+        //BarCode 產生器
+        'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
+        'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
+        // AWS
+        'AWS' => Aws\Laravel\AwsServiceProvider::class,
+        // PDF 匯出
+        'PDF' => Barryvdh\DomPDF\ServiceProvider::class,
     ])->toArray(),
 
 ];
