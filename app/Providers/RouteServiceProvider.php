@@ -27,12 +27,34 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::middleware('api')
-                ->prefix('api')
-                ->group(base_path('routes/api.php'));
+            // Route::middleware('api')
+            //     ->prefix('api')
+            //     ->group(base_path('routes/api.php'));
 
-            Route::middleware('web')
-                ->group(base_path('routes/web.php'));
+            // Route::middleware('web')
+            //     ->group(base_path('routes/web.php'));
+
+            // Route::middleware('admin')
+            //     ->group(base_path('routes/admin.php'));
+
+            // 前台網頁 Route 設定
+            Route::domain(env('WEB_DOMAIN', 'localhost'))
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
+
+            // 後臺管理網頁 Route 設定
+            Route::domain(env('ADMIN_DOMAIN', 'localhost'))
+            ->middleware('admin')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admin.php'));
+
+            //API Route 設定
+            Route::domain(env('API_DOMAIN', 'api.localhost'))
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
+
         });
     }
 

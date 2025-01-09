@@ -56,10 +56,20 @@ return [
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'prefix_indexes' => true,
-            'strict' => true,
+            'strict' => true, //開啟 Group By 設定
+            'modes' => [
+                //'ONLY_FULL_GROUP_BY', // Disable this to allow grouping by one column
+                'STRICT_TRANS_TABLES',
+                'NO_ZERO_IN_DATE',
+                'NO_ZERO_DATE',
+                'ERROR_FOR_DIVISION_BY_ZERO',
+                explode('.',phpversion())[0] <= 7 ? 'NO_AUTO_CREATE_USER' : '', //mysql8無法使用
+                'NO_ENGINE_SUBSTITUTION'
+            ],
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+                PDO::ATTR_EMULATE_PREPARES => true
             ]) : [],
         ],
 

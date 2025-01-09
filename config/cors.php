@@ -1,5 +1,5 @@
 <?php
-
+!empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] == env('API_DOMAIN') ? $path = '*' : $path = '';
 return [
 
     /*
@@ -15,7 +15,8 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    // 'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'paths' => [$path],
 
     'allowed_methods' => ['*'],
 

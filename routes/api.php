@@ -13,7 +13,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/', function(){
+    if(env('APP_ENV') == 'production'){
+        return null;
+    }else{
+        return 'API Route';
+        return redirect()->to('docs');
+    }
 });
