@@ -57,6 +57,15 @@ return [
             'ignore_exceptions' => false,
         ],
 
+        'database' => [
+            'driver' => 'custom',
+            'via' => danielme85\LaravelLogToDB\LogToDbHandler::class,
+            'name' => 'Basic DB Logging',
+            'level' => env('LOG_LEVEL', 'debug'),
+            'max_records' => env('LOG_DB_MAX_COUNT', false), //Ex: 1000 records
+            'max_hours' => env('LOG_DB_MAX_HOURS', false), //Ex: 24 for 24 hours. Or 24*7 = 1 week.
+        ],
+
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
