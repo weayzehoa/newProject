@@ -1,0 +1,26 @@
+前台使用者註冊範例
+https://newapi.localhost/web/v1/register
+{
+    "nation" : "+886",
+    "mobile": "0928589779",
+    "verifyCode": "1719469838",
+    "name": "Roger Wu",
+    "email": "weayzehoa@gmail.com",
+    "password": "Mh97dfdn",
+    "password_confirmation": "Mh97dfdn",
+    "birthDay": "1974-06-04",
+    "address": "新北市新店區中正路104號4F",
+    "items": [
+        {
+          "discount": "8",
+          "amount": "80",
+          "memo": "備註說明"
+        },
+        {
+          "discount": "10",
+          "amount": "100",
+          "memo": "備註說明"
+        }
+    ]
+}
+

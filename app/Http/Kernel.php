@@ -74,5 +74,11 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        //檢查 JWT Token 及 自動更新 Token
+        'refresh.token' => \App\Http\Middleware\JwtRefreshToken::class,
+        // //檢查 IP
+        // 'checkIp' => \App\Http\Middleware\CheckIpMiddleware::class,
+        // //優化圖片
+        // 'optimizeImages' => \Spatie\LaravelImageOptimizer\Middlewares\OptimizeImages::class,
     ];
 }

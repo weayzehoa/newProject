@@ -197,6 +197,8 @@ return [
         Aws\Laravel\AwsServiceProvider::class,
         //PDF 匯出
         Barryvdh\DomPDF\ServiceProvider::class,
+        //JWT
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         /*
          * Application Service Providers...
          */

@@ -4,9 +4,11 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use App\Traits\ApiResponser;
 
 class Handler extends ExceptionHandler
 {
+    use ApiResponser;
     /**
      * A list of exception types with their corresponding custom log levels.
      *
@@ -44,5 +46,37 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+        //判斷 domain 是否為 api domain
+        if(request()->getHost() == env('API_DOMAIN')){
+            $this->renderable(function (Throwable $e) {
+                return $this->handleException($e);
+            });
+        }
     }
+
+    public function handleException(Throwable $e){
+        if ($e instanceof MethodNotAllowedHttpException) {
+            return $this->appCodeResponse('Error', 999, 'The specified method for the request is invalid', 405);
+        }
+        if ($e instanceof NotFoundHttpException) {
+            return $this->appCodeResponse('Error', 999, 'The specified URL could not be found.', 404);
+        }
+        if ($e instanceof HttpException) {
+            return $this->errorResponse($e->getMessage(), $e->getStatusCode());
+        }
+        return $this->appCodeResponse('Error', 999, $e->getMessage(), $e->getStatusCode());
+        // if($e->getStatusCode() == 404){
+        //     return $this->appCodeResponse('Error', 999, 'The specified URL could not be found.', 404);
+        // }elseif($e->getStatusCode() == 405){
+        //     return $this->appCodeResponse('Error', 999, 'Method is not supported.', 405);
+        // }else{
+        //     if(env('APP_ENV') == 'local'){
+        //         return $this->appCodeResponse('Error', 999, [$e->getMessage(), $e->getStatusCode()], 500);
+        //     }else{
+        //         return $this->appCodeResponse('Error', 999, 'Unexpected Exception. Try later', 500);
+        //     }
+        // }
+    }
+
 }

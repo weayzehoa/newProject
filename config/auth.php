@@ -36,23 +36,30 @@ return [
     */
 
     'guards' => [
+        //前台使用者
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'api' => [
-            'driver' => 'token',
+
+        //前台 User API
+        'webapi' => [
+            'driver' => 'jwt',
             'provider' => 'users',
             'hash' => false,
         ],
-        //提供給後台管理登入用
+
+        //後台管理者
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
         ],
-        'admin-api' => [
-            'driver' => 'token',
+
+        //後台 Admin API
+        'admapi' => [
+            'driver' => 'jwt',
             'provider' => 'admins',
+            'hash' => false,
         ],
     ],
 
