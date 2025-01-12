@@ -24,6 +24,7 @@
         "proengsoft/laravel-jsvalidation": "^4.9",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-activitylog": "^4.9",
+        "tymon/jwt-auth": "^2.1",
         "webpatser/laravel-uuid": "^4.0"
     },
     "require-dev": {
