@@ -5,14 +5,14 @@ return [
     'documentations' => [
         'default' => [
             'api' => [
-                'title' => 'L5 Swagger UI',
+                'title' => 'New Project API Docs',
             ],
 
             'routes' => [
                 /*
                  * Route for accessing api documentation interface
                  */
-                'api' => 'api/documentation',
+                'api' => 'docs',
             ],
             'paths' => [
                 /*
@@ -292,6 +292,10 @@ return [
                  * the tag.
                  */
                 'filter' => env('L5_SWAGGER_UI_FILTERS', true), // true | false
+
+                // 自动展开所有 Models 的层级
+                'defaultModelsExpandDepth' => -1, // -1 表示全部展开
+                'defaultModelExpandDepth' => 2,  // 单个 Schema 展开的深度，0 表示折叠
             ],
 
             'authorization' => [

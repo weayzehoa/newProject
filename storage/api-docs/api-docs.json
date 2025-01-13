@@ -1,0 +1,138 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "NewProject API Documents",
+        "description": "Laravel new project api description\n1. 同一個client連線API預設限制60次/分鐘，超過則會出現Too Many Requests(429)被限制10秒鐘無法訪問API。\n2. API右邊若有鎖頭代表需要輸入 Authorization 來使用，請找到相對應(前台使用者、後台管理者)的API登入取得Token。\n3. Authorization 過期前若干時間將會自動更並附加到 header 中，請隨時檢查 Authorization 是否有更新。\n4. API Query 中 header 中若帶有 Authorization 資料，將會返回原來的 Authorization 。 (系統性錯誤則不返回)",
+        "contact": {
+            "email": "weayzehoa@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://newapi.localhost",
+            "description": "Localhost 測試區"
+        },
+        {
+            "url": "https://newapi.rvt.idv.tw",
+            "description": "RVT 線上測試區"
+        }
+    ],
+    "paths": {
+        "/": {},
+        "/web/v1/register": {
+            "post": {
+                "tags": [
+                    "前台使用者登入登出"
+                ],
+                "summary": "前台使用者註冊資料",
+                "description": "前台使用者註冊資料。",
+                "operationId": "webRegister",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nation",
+                                    "mobile",
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "nation": {
+                                        "description": "國際碼，EX: +886",
+                                        "type": "string(4)"
+                                    },
+                                    "mobile": {
+                                        "description": "行動電話號碼",
+                                        "type": "digits(11)"
+                                    },
+                                    "name": {
+                                        "description": "名字",
+                                        "type": "string(40)"
+                                    },
+                                    "email": {
+                                        "description": "電子郵件",
+                                        "type": "string(255)",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "description": "密碼，至少八個字元，至少包含一個數字及一個大寫",
+                                        "type": "string(255)",
+                                        "format": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "description": "確認密碼，至少八個字元，至少包含一個數字及一個大寫",
+                                        "type": "string(255)",
+                                        "format": "password"
+                                    },
+                                    "birthDay": {
+                                        "description": "生日,ex: 2020-01-01",
+                                        "type": "string(10)",
+                                        "format": "date"
+                                    },
+                                    "address": {
+                                        "description": "地址",
+                                        "type": "string(255)"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "nation": "+886",
+                                "mobile": "987654321",
+                                "name": "測試專家",
+                                "email": "test@test.com",
+                                "password": "Aa12345@",
+                                "password_confirmation": "Aa12345@",
+                                "birthDay": "2000-01-01",
+                                "address": "測試市測試區測試路1001號100F"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success,<br>appCode = 0: 註冊完成。自動登入，取得 Authorization 授權。<br>appCode = -9: 該帳號已被使用者註記刪除，無法註冊。<br>appCode = -1: 該帳號已被停用，無法註冊。<br>appCode = 2: 該帳號未完成註冊。<br>"
+                    },
+                    "400": {
+                        "description": "Error, appCode = 999: 參數不存在/參數錯誤。"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "webAuth": {
+                "type": "http",
+                "description": "Login to 前台-使用者  get the authentication token",
+                "name": "authentication",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            },
+            "adminAuth": {
+                "type": "http",
+                "description": "Login to 後台-管理者 get the authentication token",
+                "name": "authentication",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "前台使用者登入登出",
+            "description": "前台使用者登入登出"
+        }
+    ]
+}

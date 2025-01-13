@@ -13,14 +13,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-// Route::get('/', function(){
-//     if(env('APP_ENV') == 'production'){
-//         return null;
-//     }else{
-//         return 'API Route';
-//         return redirect()->to('docs');
-//     }
-// });
+Route::get('/', function(){
+    if(env('APP_ENV') == 'production'){
+        return response(null, 200)->header('Content-Type', 'text/plain');
+    }else{
+        return redirect()->to('docs');
+    }
+});
 
 //前台API群組
 use App\Http\Controllers\API\Web\V1\UserLoginController as UserLoginV1;

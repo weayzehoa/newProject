@@ -252,12 +252,91 @@ class UserLoginController extends Controller
     // }
 
     //註冊資料
+    /**
+     * @OA\POST(
+     *     path="/web/v1/register",
+     *     operationId="webRegister",
+     *     tags={"前台使用者登入登出"},
+     *     summary="前台使用者註冊資料",
+     *     description="前台使用者註冊資料。",
+     *      @OA\RequestBody (
+     *           required = true,
+     *           @OA\JsonContent(
+     *               required = {"nation","mobile","name","email","password","password_confirmation"},
+     *               example={
+     *                  "nation" : "+886",
+     *                  "mobile": "987654321",
+     *                  "name": "測試專家",
+     *                  "email": "test@test.com",
+     *                  "password": "Aa12345@",
+     *                  "password_confirmation": "Aa12345@",
+     *                  "birthDay": "2000-01-01",
+     *                  "address": "測試市測試區測試路1001號100F",
+     *               },
+     *               @OA\Property(
+     *                   property="nation",
+     *                   type="string(4)",
+     *                   description="國際碼，EX: +886"
+     *               ),
+     *               @OA\Property(
+     *                   property="mobile",
+     *                   type="digits(11)",
+     *                   description="行動電話號碼"
+     *               ),
+     *               @OA\Property(
+     *                   property="name",
+     *                   type="string(40)",
+     *                   description="名字"
+     *               ),
+     *               @OA\Property(
+     *                   property="email",
+     *                   type="string(255)",
+     *                   format="email",
+     *                   description="電子郵件"
+     *               ),
+     *               @OA\Property(
+     *                   property="password",
+     *                   type="string(255)",
+     *                   format="password",
+     *                   description="密碼，至少八個字元，至少包含一個數字及一個大寫"
+     *               ),
+     *               @OA\Property(
+     *                   property="password_confirmation",
+     *                   type="string(255)",
+     *                   format="password",
+     *                   description="確認密碼，至少八個字元，至少包含一個數字及一個大寫"
+     *               ),
+     *               @OA\Property(
+     *                   property="birthDay",
+     *                   type="string(10)",
+     *                   format="date",
+     *                   description="生日,ex: 2020-01-01"
+     *               ),
+     *               @OA\Property(
+     *                   property="address",
+     *                   type="string(255)",
+     *                   description="地址"
+     *               ),
+     *           ),
+     *       ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success,<br>appCode = 0: 註冊完成。自動登入，取得 Authorization 授權。<br>appCode = -9: 該帳號已被使用者註記刪除，無法註冊。<br>appCode = -1: 該帳號已被停用，無法註冊。<br>appCode = 2: 該帳號未完成註冊。<br>",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Error, appCode = 999: 參數不存在/參數錯誤。",
+     *     ),
+    * )
+    */
+
     public function register(Request $request)
     {
         $code = 999;
         $httpCode = 400;
         $status = 'Error';
         $message = 'No Data Input';
+        $token = null;
         if(!empty($request->getContent())){
             $getJson = $request->getContent();
             $data = json_decode($getJson, true);
@@ -297,15 +376,18 @@ class UserLoginController extends Controller
                     $code = 0;
                     $httpCode = 200;
                     $status = 'Success';
-                    $message = '註冊成功';
+                    $message = '註冊完成。';
+                    $token = auth('webapi')->login($user);
                 }
             }else{
                 $message = 'JSON Data Decoded Failure';
             }
         }
-        return $this->appCodeResponse($status, $code, $message, $httpCode);
-        $token = auth('webapi')->login($user);
-        return $this->appCodeResponse('Success', 1, '註冊完成。', 200)->header('Authorization','Bearer '.$token);
+        if(!empty($token)){
+            return $this->appCodeResponse($status, $code, $message, $httpCode)->header('Authorization','Bearer '.$token);
+        }else{
+            return $this->appCodeResponse($status, $code, $message, $httpCode);
+        }
     }
 
     // //忘記密碼
