@@ -30,8 +30,14 @@ class Admin extends Authenticatable implements JWTSubject
         'account',
         'name',
         'address',
-        'birthDay',
+        'birthday',
         'status',
+        'power',
+        'lock_on',
+        'otp_code',
+        'otp_time',
+        'verify_mode',
+        '2fa_secret',
     ];
 
     /**
