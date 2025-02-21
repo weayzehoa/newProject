@@ -187,8 +187,6 @@ return [
          */
         //Laravel Excel
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        //Request 紀錄器
-        LittleBookBoy\Request\Recorder\RequestRecorderServiceProvider::class,
         //DebugBar
         Barryvdh\Debugbar\ServiceProvider::class,
         //BarCode 產生器

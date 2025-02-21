@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a5f821a499245b23e79e4a4202f6dfa0",
+    "content-hash": "4b6bd6b2008c75f27ee6733e56e82cdc",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3215,52 +3215,6 @@
                 }
             ],
             "time": "2024-09-21T08:32:55+00:00"
-        },
-        {
-            "name": "littlebookboy/laravel-request-recorder",
-            "version": "v1.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/littlebookboy/laravel-request-recorder.git",
-                "reference": "0bf61e8f2a3dfb585d588682d36ed6835199c344"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/littlebookboy/laravel-request-recorder/zipball/0bf61e8f2a3dfb585d588682d36ed6835199c344",
-                "reference": "0bf61e8f2a3dfb585d588682d36ed6835199c344",
-                "shasum": ""
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "LittleBookBoy\\Request\\Recorder\\RequestRecorderServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "LittleBookBoy\\Request\\Recorder\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "proprietary"
-            ],
-            "authors": [
-                {
-                    "name": "Ching Yuan Su",
-                    "email": "kevin2pig@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Help you have a easy way to record your every request and response information.",
-            "homepage": "https://github.com/littlebookboy/laravel-request-recorder",
-            "support": {
-                "issues": "https://github.com/littlebookboy/laravel-request-recorder/issues",
-                "source": "https://github.com/littlebookboy/laravel-request-recorder/tree/v1.4.1"
-            },
-            "time": "2021-06-26T06:30:00+00:00"
         },
         {
             "name": "maatwebsite/excel",
